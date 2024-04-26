@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,14 +13,24 @@ namespace MyGame2
 {
     public partial class Player1 : Form
     {
-
-        private GameBoard board;
+        private NetworkStream ns;
         private int playerNum = 1;
-        
-        public Player1()
+        private PictureBox[,] circles;
+        private Button[] buttonsArray;
+        private const int rows = 6;
+        private const int cols = 7;
+        int x = 50;
+        int y = 30;
+        Client client;
+
+        public Player1(Client client)
         {
             InitializeComponent();
-            board = new GameBoard(this);
+            buttonsArray = new Button[7];
+            circles = new PictureBox[6, 7];
+            DrawButtons(); // draw buttons
+            DrawCircles(); // draw circles
+            this.client = client;
         }
 
         public int getPlayerNum()
@@ -27,6 +38,84 @@ namespace MyGame2
             return playerNum;
         }
 
+        public void buttonClick(object sender, EventArgs e)
+        {
+            int selectedCol = int.Parse(((Button)sender).Name);
+            // ns.Write(data...); // sends selectedCol to server (the server returns the avaliable row in the selected column)
+            // ns.Read(data...);  // reads avaliable row and current player from server
+            //UpdateCircle(data[0], selectedCol, data[1])
+            client.SendMessage("Insert," + selectedCol);
+
+        }
+
+        public void DrawButtons()
+        {
+            for (int i = 0; i < buttonsArray.Length; i++)
+            {
+                this.buttonsArray[i] = new Button();
+
+                this.buttonsArray[i].BackColor = System.Drawing.SystemColors.Control;
+                this.buttonsArray[i].Location = new System.Drawing.Point(x, y);
+                this.buttonsArray[i].Name = "" + i;
+                this.buttonsArray[i].Size = new System.Drawing.Size(39, 23);
+                //this.buttonsArray[i].Text = "" + (i + 1);
+                //this.buttonsArray[i].TabIndex = 43;
+                this.buttonsArray[i].UseVisualStyleBackColor = true;
+                this.buttonsArray[i].Click += new System.EventHandler(buttonClick);
+                this.Controls.Add(this.buttonsArray[i]);
+
+                x += 45;
+            }
+        }
+
+        public void DrawCircles()
+        {
+            x = 50;
+            y = 60;
+            for (int i = 0; i < circles.GetLength(0); i++)
+            {
+                for (int j = 0; j < circles.GetLength(1); j++)
+                {
+                    this.circles[i, j] = new PictureBox();
+
+                    this.circles[i, j].Image = ((System.Drawing.Image)(Properties.Resources.gray_circle_without_background));
+                    this.circles[i, j].Location = new System.Drawing.Point(x, y);
+                    this.circles[i, j].Name = "pictureBox" + (i + 1);
+                    this.circles[i, j].Size = new System.Drawing.Size(39, 39);
+                    this.circles[i, j].SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+                    this.circles[i, j].TabIndex = 36;
+                    this.circles[i, j].TabStop = false;
+                    this.Controls.Add(this.circles[i, j]);
+
+                    x += 45;
+                }
+                x = 50;
+                y += 45;
+            }
+            x = 50;
+            y = 60;
+
+        }
+
+        public void UpdateCircle(int row, int col, int currentPlayer)
+        {
+            if (row >= 0) // there is an avaliable row
+            {
+                switch (currentPlayer)
+                {
+                    case 0:
+                        this.circles[row, col].Image = ((System.Drawing.Image)(Properties.Resources.gray_circle_without_background));
+                        break;
+                    case 1:
+                        this.circles[row, col].Image = ((System.Drawing.Image)(Properties.Resources.blue_circle_without_background));
+                        break;
+                    case 2:
+                        this.circles[row, col].Image = ((System.Drawing.Image)(Properties.Resources.red_circle_without_background));
+                        break;
+                }
+            }
+            else MessageBox.Show("Column" + (col + 1) + "is already full. Choose a different Column.");
+        }
 
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -39,12 +128,9 @@ namespace MyGame2
 
         }
 
-        public void buttonClick(object sender, EventArgs e)
+        private void Player1_Load(object sender, EventArgs e)
         {
-            int selectedCol = int.Parse(((Button)sender).Name);
-            board.insertDisc(selectedCol,this);
-           
-            
+
         }
     }
 }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,13 +34,17 @@ namespace MyGame2
         private Button signUpB2;
         private Button loginB2;
 
-        ConnectionToSql connectToSql;
-        private Player1 p1;
 
-        public Form1()
+        private Player1 p1;
+        private NetworkStream ns;
+        private byte[] data;
+        Client client;
+
+        public Form1(NetworkStream ns)
         {
             InitializeComponent();
-            connectToSql = new ConnectionToSql();
+            this.ns = ns;
+            client = new Client(this);
         }
 
         private void loginB1_Click(object sender, EventArgs e)
@@ -231,54 +236,65 @@ namespace MyGame2
         }
 
         private void loginB2_Click(object sender, EventArgs e)
-        {
-            if (connectToSql.IsExist(usernameTL.Text))
-            {
-                if (connectToSql.IsMatchingPass(usernameTL.Text, passwordTL.Text))
-                {
-                    MessageBox.Show("You have logged in!");
-                    p1 = new Player1();
-                    p1.Show();
-                }
-                else
-                    MessageBox.Show("password or username is incorrect");
-            }
-            else
-                MessageBox.Show("password or username is incorrect");
+       {
+            String input = usernameTL.Text + "," + passwordTL.Text;
+
+            //data = Encoding.ASCII.GetBytes("Login ," + input);
+            //ns.Write(data, 0, data.Length);
+
+            client.SendMessage("Login,"+input);
+
+            //int n = ns.Read(data,0,1);
+
+            //if (data[0] == 1) //connection success
+            //{
+            //    MessageBox.Show("You have logged in!");
+            //    p1 = new Player1(ns);
+            //    p1.Show();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("password or username is incorrect");
+            //}
 
         }
 
         private void signUpB2_Click(object sender, EventArgs e)
         {
-            if (usernameT.Text != "")
-            {
-                if (!connectToSql.IsExist(usernameT.Text))
-                {
-                    // Get the selected city from the ComboBox
-                    string selectedCity = cityC.SelectedItem?.ToString();  // Use ToString() to get the city as a string
+        //    if (usernameT.Text != "")
+        //    {
+        //        if (!connectToSql.IsExist(usernameT.Text))
+        //        {
+        //            // Get the selected city from the ComboBox
+        //            string selectedCity = cityC.SelectedItem?.ToString();  // Use ToString() to get the city as a string
 
-                    if (!string.IsNullOrEmpty(selectedCity))
-                    {
-                        connectToSql.InsertNewUser(usernameT.Text, passwordT.Text, firstNameT.Text, lastNameT.Text, emailT.Text, selectedCity, genderC.Text);
-                        MessageBox.Show("You have signed up");
-                        Controls.Clear();
-                        Controls.Add(signUpB1);
-                        Controls.Add(loginB1);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select a city from the list");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Username already exists, choose a different username");
-                }
-            }
-            else
-            {
-                MessageBox.Show("All fields must be filled");
-            }
+        //            if (!string.IsNullOrEmpty(selectedCity))
+        //            {
+        //                connectToSql.InsertNewUser(usernameT.Text, passwordT.Text, firstNameT.Text, lastNameT.Text, emailT.Text, selectedCity, genderC.Text);
+        //                MessageBox.Show("You have signed up");
+        //                Controls.Clear();
+        //                Controls.Add(signUpB1);
+        //                Controls.Add(loginB1);
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Please select a city from the list");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Username already exists, choose a different username");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("All fields must be filled");
+        //    }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 

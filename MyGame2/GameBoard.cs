@@ -33,6 +33,8 @@ namespace MyGame2
                 }
             }
         }
+
+
         public GameBoard(Player1 p1)
         {
             circles = new PictureBox[rows, cols];
@@ -143,12 +145,19 @@ namespace MyGame2
 
         //}
 
-        public void insertDisc(int column, Player1 p)
+        private void insertDisc(int column, Player1 p)
         {
+            
+            
             if (statusMatrix[0, column] != 0)
                 MessageBox.Show("Column" + (column + 1) + "is already full. Choose a different Column.");
             else
             {
+                // Send to server update message
+
+                // Receive updated state
+                //  
+
                 for (int i = statusMatrix.GetLength(0) - 1; i >= 0; i--)
                 {
                     if (statusMatrix[i, column] == 0)
@@ -176,6 +185,8 @@ namespace MyGame2
                 }
             }
         }
+
+        // Server
 
         private bool checkWin(int currentPlayer)
         {
