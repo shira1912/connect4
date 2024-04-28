@@ -26,7 +26,7 @@ using System.Windows.Forms;
 //    }
 //}
 
-namespace MyGame2
+namespace ConnectFour
 {
     internal static class Program
     {

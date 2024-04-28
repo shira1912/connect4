@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 
-namespace MyGameServer
+namespace ConnectFourServer
 {
     /// <summary>
     /// The ChatClient class represents info about each client connecting to the server.
     /// </summary>
-    class server
+    class Server
     {
         // Store list of all clients connecting to the server
         // the list is static so all memebers of the chat will be able to obtain list
@@ -36,7 +36,7 @@ namespace MyGameServer
         /// </summary>
         /// <param name="client"></param>
 
-        public server(TcpClient client)
+        public Server(TcpClient client)
         {
             _client = client;
 
@@ -117,28 +117,56 @@ namespace MyGameServer
                 else // client still connected
                 {
                     string messageReceived = System.Text.Encoding.ASCII.GetString(data, 0, bytesRead);
-                    string [] messageType = messageReceived.Split(',');
+                    string [] splitMessage = messageReceived.Split(',');
                     // if the client is sending its nickname
-                    switch (messageType[0])
+                    switch (splitMessage[0])
                     {
+                        case "SignUp":
+                        {
+                                if (!connection.IsExist(splitMessage[1]))
+                                {
+                                    connection.InsertNewUser(splitMessage[1], splitMessage[2], splitMessage[3], splitMessage[4], splitMessage[5],
+                                        splitMessage[6], splitMessage[7]);
+                                    SendMessage("SignUp,true");
+                                }
+
+                                else
+                                {
+                                    SendMessage("SignUp,false");
+                                }
+                                break;
+                        }
                         case "Login":
                         {
-                            bool isLogin = connection.IsMatchingPass(messageType[1], messageType[2]);
+                            bool isLogin = connection.IsMatchingPass(splitMessage[1], splitMessage[2]);
                             if (isLogin)
                             {
-                                SendMessage("Login,True");
+                                SendMessage("Login,true");
                                 _ClientNick = AllClients.Count;
-                                players[AllClients.Count] = messageType[1];
+                                players[AllClients.Count] = splitMessage[1];
 
                             } else
                             {
-                                SendMessage("Login,False");
+                                SendMessage("Login,false");
                             }
                             break;
                         }
                         case "Insert":
                         {
-                                gameboard.insertDisc(int.Parse(messageType[1]), _ClientNick);
+                                int selectedCol = int.Parse(splitMessage[1]);
+                                int row = gameboard.insertDisc(selectedCol, _ClientNick);
+                                if (row >= 0)
+                                {
+                                    Broadcast("Insert," + row + "," +selectedCol + "," + _ClientNick);
+                                }
+                                else
+                                {
+                                    SendMessage("FullCol," + selectedCol);
+                                }
+                                if (gameboard.checkWin(_ClientNick))
+                                {
+                                    Broadcast("Win," + _ClientNick);
+                                }
                                 break;
                         }
                     }
@@ -172,7 +200,7 @@ namespace MyGameServer
             Console.WriteLine(message);
             foreach (DictionaryEntry c in AllClients)
             {
-                ((server)(c.Value)).SendMessage(message + Environment.NewLine);
+                ((Server)(c.Value)).SendMessage(message + Environment.NewLine);
             }
         }
     }

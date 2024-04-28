@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyGameServer
+namespace ConnectFourServer
 {
     internal class ConnectionToSql
     {

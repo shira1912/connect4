@@ -1,10 +1,10 @@
-﻿using MyGameServer;
+﻿using ConnectFourServer;
 using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 
-namespace Server
+namespace ConnectFourServer
 {
     class Program
     {
@@ -36,7 +36,7 @@ namespace Server
                 TcpClient tcpClient = listener.AcceptTcpClient();
                 Console.WriteLine("new socket: " + tcpClient.Client.RemoteEndPoint.ToString());
                 //ChatClient user = new ChatClient(listener.AcceptTcpClient());
-                server user = new server(tcpClient);
+                Server user = new Server(tcpClient);
             }
         }
     }

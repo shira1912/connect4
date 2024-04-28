@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MyGame2
+namespace ConnectFour
 {
     public partial class Form1 : Form
     {
@@ -33,9 +33,9 @@ namespace MyGame2
         private Label genderL;
         private Button signUpB2;
         private Button loginB2;
+        
 
-
-        private Player1 p1;
+        private Player p1;
         private NetworkStream ns;
         private byte[] data;
         Client client;
@@ -45,6 +45,7 @@ namespace MyGame2
             InitializeComponent();
             this.ns = ns;
             client = new Client(this);
+            Controls.Remove(returnPicBox);
         }
 
         private void loginB1_Click(object sender, EventArgs e)
@@ -84,6 +85,8 @@ namespace MyGame2
             loginB2 = new Button();
             loginB2.Location = new System.Drawing.Point(144, 142);
             loginB2.Name = "loginB2";
+            loginB2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            loginB2.ForeColor = System.Drawing.SystemColors.ButtonFace;
             loginB2.Size = new System.Drawing.Size(75, 23);
             loginB2.TabIndex = 0;
             loginB2.Text = "Login";
@@ -91,8 +94,23 @@ namespace MyGame2
             loginB2.Click += new System.EventHandler(this.loginB2_Click);
             Controls.Add(loginB2);
 
+            // 
+            // returnPicBox
+            // 
+            returnPicBox = new PictureBox();
+            returnPicBox.Image = global::ConnectFour.Properties.Resources.return_arrow_without_background;
+            returnPicBox.Location = new System.Drawing.Point(343, 301);
+            returnPicBox.Name = "returnPicBox";
+            returnPicBox.Size = new System.Drawing.Size(47, 47);
+            returnPicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            returnPicBox.TabIndex = 4;
+            returnPicBox.TabStop = false;
+            returnPicBox.Click += new System.EventHandler(this.returnPicBox_Click);
+            Controls.Add(returnPicBox);
+
             Controls.Remove(signUpB1);
             Controls.Remove(loginB1);
+            Controls.Remove(connect4title);
 
         }
         private void signUpB1_Click(object sender, EventArgs e)
@@ -131,6 +149,20 @@ namespace MyGame2
             emailT.Size = new System.Drawing.Size(100, 20);
             emailT.TabIndex = 2;
             Controls.Add(emailT);
+
+            // 
+            // returnPicBox
+            // 
+            returnPicBox = new PictureBox();
+            returnPicBox.Image = global::ConnectFour.Properties.Resources.return_arrow_without_background;
+            returnPicBox.Location = new System.Drawing.Point(343, 301);
+            returnPicBox.Name = "returnPicBox";
+            returnPicBox.Size = new System.Drawing.Size(47, 47);
+            returnPicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            returnPicBox.TabIndex = 4;
+            returnPicBox.TabStop = false;
+            returnPicBox.Click += new System.EventHandler(this.returnPicBox_Click);
+            Controls.Add(returnPicBox);
 
             List<string> israeliCities = new List<string>
     {
@@ -223,6 +255,8 @@ namespace MyGame2
             signUpB2 = new Button();
             signUpB2.Location = new System.Drawing.Point(40, 260);
             signUpB2.Name = "signUpB2";
+            signUpB2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            signUpB2.ForeColor = System.Drawing.SystemColors.ButtonFace;
             signUpB2.Size = new System.Drawing.Size(75, 23);
             signUpB2.TabIndex = 0;
             signUpB2.Text = "Sign Up";
@@ -232,6 +266,7 @@ namespace MyGame2
 
             Controls.Remove(signUpB1);
             Controls.Remove(loginB1);
+            Controls.Remove(connect4title);
 
         }
 
@@ -239,62 +274,42 @@ namespace MyGame2
        {
             String input = usernameTL.Text + "," + passwordTL.Text;
 
-            //data = Encoding.ASCII.GetBytes("Login ," + input);
-            //ns.Write(data, 0, data.Length);
-
-            client.SendMessage("Login,"+input);
-
-            //int n = ns.Read(data,0,1);
-
-            //if (data[0] == 1) //connection success
-            //{
-            //    MessageBox.Show("You have logged in!");
-            //    p1 = new Player1(ns);
-            //    p1.Show();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("password or username is incorrect");
-            //}
-
+            client.SendMessage("Login," + input);
         }
 
         private void signUpB2_Click(object sender, EventArgs e)
         {
-        //    if (usernameT.Text != "")
-        //    {
-        //        if (!connectToSql.IsExist(usernameT.Text))
-        //        {
-        //            // Get the selected city from the ComboBox
-        //            string selectedCity = cityC.SelectedItem?.ToString();  // Use ToString() to get the city as a string
-
-        //            if (!string.IsNullOrEmpty(selectedCity))
-        //            {
-        //                connectToSql.InsertNewUser(usernameT.Text, passwordT.Text, firstNameT.Text, lastNameT.Text, emailT.Text, selectedCity, genderC.Text);
-        //                MessageBox.Show("You have signed up");
-        //                Controls.Clear();
-        //                Controls.Add(signUpB1);
-        //                Controls.Add(loginB1);
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show("Please select a city from the list");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("Username already exists, choose a different username");
-        //        }
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("All fields must be filled");
-        //    }
+            //if (usernameT.Text != "")
+            //{
+               // Get the selected city from the ComboBox
+                //string selectedCity = cityC.SelectedItem?.ToString();  // Use ToString() to get the city as a string
+                if (!(string.IsNullOrEmpty(usernameT.Text) || string.IsNullOrEmpty(passwordT.Text) || string.IsNullOrEmpty(firstNameT.Text)
+                    || string.IsNullOrEmpty(lastNameT.Text) || string.IsNullOrEmpty(emailT.Text) || string.IsNullOrEmpty(cityC.Text)
+                    || string.IsNullOrEmpty(genderC.Text)))
+                {
+                    String input = usernameT.Text + "," + passwordT.Text + "," + firstNameT.Text + "," + lastNameT.Text + "," + emailT.Text + "," 
+                        + cityC.Text + "," + genderC.Text;
+                    client.SendMessage("SignUp," + input);
+                    Controls.Clear();
+                    Controls.Add(signUpB1);
+                    Controls.Add(loginB1);
+                }
+                else
+                {
+                    MessageBox.Show("All fields must be filled");
+                }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void returnPicBox_Click(object sender, EventArgs e)
+        {
+            Controls.Clear();
+            Controls.Add(signUpB1);
+            Controls.Add(loginB1);
         }
     }
 

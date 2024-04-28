@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace MyGame2
+namespace ConnectFour
 {
     internal class CircleButton : Button
     {

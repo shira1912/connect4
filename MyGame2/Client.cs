@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net.Sockets;
 
-namespace MyGame2
+namespace ConnectFour
 {
     public partial class Client
     {
@@ -16,8 +16,13 @@ namespace MyGame2
         TcpClient client;
         byte[] data;
         Form form;
+        Player p;
+        
 
         private delegate void delLogin(string str);
+        private delegate void delInsert(string str1, string str2, string str3);
+        private delegate void delSignUp(string str);
+        private delegate void delEnabledButtons(string str);
 
         public Client(Form form)
         {
@@ -74,10 +79,38 @@ namespace MyGame2
                     // invoke the delegate to display the recived data
                     string textFromServer = System.Text.Encoding.ASCII.GetString(data, 0, bytesRead);
                     string[] splitMessage = textFromServer.Split(',');
-                    if (splitMessage[0] == "Login")
+                    
+                    switch (splitMessage[0])
                     {
-                        this.form.Invoke(new delLogin(Login), splitMessage[1]);
+                        case "SignUp":
+                        {
+                            this.form.Invoke(new delSignUp(SignUp), splitMessage[1]);
+                            break;
+                        }
+                        case "Login":
+                        {
+                            this.form.Invoke(new delLogin(Login), splitMessage[1]);
+                            break;
+                        }
+                        case "Insert":
+                        {
+                                this.form.Invoke(new delInsert(Insert), splitMessage[1], splitMessage[2], splitMessage[3]);
+                                break;
+                        }
+                        case "FullCol":
+                        {
+                                MessageBox.Show("Column" + splitMessage[1] + " is already full. please choose another column");
+                                break;
+                        }
+                        case "Win":
+                        {
+                                MessageBox.Show("Player " + splitMessage[1] + " win!");
+                                this.form.Invoke(new delEnabledButtons(EnabledButtons), "false");
+                                break;
+                        }
+                        
                     }
+
                 }
 
                 // continue reading
@@ -93,21 +126,50 @@ namespace MyGame2
             }
         }
 
-
+        void SignUp(string str)
+        {
+            if (str == "true")
+            {
+                MessageBox.Show("You have signed up");
+            }
+            else
+            {
+                MessageBox.Show("Username already exists, choose a different username");
+            }
+        }
 
         void Login(string str)
         {
-            if (str == "True")
+            if (str == "true")
             {
                 MessageBox.Show("You have logged in!");
-                Player1 p1 = new Player1(this);
-                p1.Show();
+                p = new Player(this);
+                p.Show();
             } else
             {
                 MessageBox.Show("password or username is incorrect");
             }
             
         }
+
+
+
+        //void Insert(string str1, string str2, string str3, string str4)
+        void Insert(string str1, string str2, string str3)
+        {
+            int row = int.Parse(str1);
+            int col = int.Parse(str2);
+            int currentPlayer = int.Parse(str3);
+       
+            p.UpdateCircle(row, col, currentPlayer);
+        }
+
+        void EnabledButtons(string str)
+        {
+            bool enabled = bool.Parse(str);
+            p.EnabledButtons(enabled);
+        }
+
 
         void Disconnect()
         {

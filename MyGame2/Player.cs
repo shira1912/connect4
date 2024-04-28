@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MyGame2
+namespace ConnectFour
 {
-    public partial class Player1 : Form
+    public partial class Player : Form
     {
         private NetworkStream ns;
         private int playerNum = 1;
@@ -23,11 +23,11 @@ namespace MyGame2
         int y = 30;
         Client client;
 
-        public Player1(Client client)
+        public Player(Client client)
         {
             InitializeComponent();
-            buttonsArray = new Button[7];
-            circles = new PictureBox[6, 7];
+            buttonsArray = new Button[cols];
+            circles = new PictureBox[rows, cols];
             DrawButtons(); // draw buttons
             DrawCircles(); // draw circles
             this.client = client;
@@ -58,7 +58,7 @@ namespace MyGame2
                 this.buttonsArray[i].Location = new System.Drawing.Point(x, y);
                 this.buttonsArray[i].Name = "" + i;
                 this.buttonsArray[i].Size = new System.Drawing.Size(39, 23);
-                //this.buttonsArray[i].Text = "" + (i + 1);
+                this.buttonsArray[i].Text = "↓";
                 //this.buttonsArray[i].TabIndex = 43;
                 this.buttonsArray[i].UseVisualStyleBackColor = true;
                 this.buttonsArray[i].Click += new System.EventHandler(buttonClick);
@@ -117,7 +117,13 @@ namespace MyGame2
             else MessageBox.Show("Column" + (col + 1) + "is already full. Choose a different Column.");
         }
 
-
+        public void EnabledButtons(bool enabled)
+        {
+                for (int i = 0; i < buttonsArray.Length; i++)
+                {
+                    this.buttonsArray[i].Enabled = enabled;
+                }
+        }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
@@ -129,6 +135,11 @@ namespace MyGame2
         }
 
         private void Player1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void newGame_Click(object sender, EventArgs e)
         {
 
         }
