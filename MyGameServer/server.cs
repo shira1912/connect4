@@ -15,12 +15,12 @@ namespace ConnectFourServer
         // the list is static so all memebers of the chat will be able to obtain list
         // of current connected client
         public static Hashtable AllClients = new Hashtable();
-
+        public static Hashtable ClientsNick = new Hashtable();
 
         // information about the client
         private TcpClient _client;
         private string _clientIP;
-        private int _ClientNick;
+        private int _ClientNum;
 
         // used for sending and reciving data
         private byte[] data;
@@ -111,7 +111,7 @@ namespace ConnectFourServer
                     // remove the client from out list of clients
                     AllClients.Remove(_clientIP);
                     // tell everyone the client left the chat.
-                    Broadcast(_ClientNick + " has left the chat.");
+                    Broadcast(_ClientNum + " has left the chat.");
                     return;
                 }
                 else // client still connected
@@ -141,9 +141,14 @@ namespace ConnectFourServer
                             bool isLogin = connection.IsMatchingPass(splitMessage[1], splitMessage[2]);
                             if (isLogin)
                             {
-                                SendMessage("Login,true");
-                                _ClientNick = AllClients.Count;
                                 players[AllClients.Count] = splitMessage[1];
+                                ClientsNick.Add(ClientsNick.Count + 1, splitMessage[1]);
+                                _ClientNum = ClientsNick.Count;
+                                SendMessage("Login,true," + _ClientNum);
+                                if (ClientsNick.Count == 2)
+                                    {
+                                        Broadcast("Ready," + ClientsNick[1]+"," + 1);
+                                    }
 
                             } else
                             {
@@ -154,27 +159,32 @@ namespace ConnectFourServer
                         case "Insert":
                         {
                                 int selectedCol = int.Parse(splitMessage[1]);
-                                int row = gameboard.insertDisc(selectedCol, _ClientNick);
+                                int row = gameboard.insertDisc(selectedCol, _ClientNum);
                                 if (row >= 0)
                                 {
-                                    Broadcast("Insert," + row + "," +selectedCol + "," + _ClientNick);
+                                    Broadcast("Insert," + row + "," +selectedCol + "," + _ClientNum + "," + ClientsNick[_ClientNum]);
                                 }
                                 else
                                 {
                                     SendMessage("FullCol," + selectedCol);
                                 }
-                                if (gameboard.checkWin(_ClientNick))
+                                if (gameboard.checkWin(_ClientNum))
                                 {
-                                    Broadcast("Win," + _ClientNick);
+                                    Broadcast("Win," + ClientsNick[_ClientNum]);
                                 }
                                 break;
                         }
+                        case "NewGame":
+                            {
+                                gameboard.restartGame();
+                                break;
+                            }
                     }
                     //if (ReceiveNick)
                     //{
-                    //    _ClientNick = messageReceived;
+                    //    _ClientNum = messageReceived;
                     //    // tell evetyone that the client has entered the chat
-                    //    Broadcast(_ClientNick + " has joined the chat.");
+                    //    Broadcast(_ClientNum + " has joined the chat.");
                     //    ReceiveNick = false;
                     //}
                 }
@@ -187,7 +197,7 @@ namespace ConnectFourServer
             catch (Exception ex)
             {
                 AllClients.Remove(_clientIP);
-                Broadcast(_ClientNick + " has left the chat.");
+                Broadcast(_ClientNum + " has left the chat.");
             }
         }
 

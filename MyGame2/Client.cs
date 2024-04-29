@@ -17,12 +17,18 @@ namespace ConnectFour
         byte[] data;
         Form form;
         Player p;
+        string username;
         
 
-        private delegate void delLogin(string str);
+        private delegate void delLogin(string str1, string str2);
         private delegate void delInsert(string str1, string str2, string str3);
         private delegate void delSignUp(string str);
         private delegate void delEnabledButtons(string str);
+        private delegate void delTurn(string str);
+        private delegate void delSwitchTurn(string str);
+        private delegate void delDeleteWaiting();
+
+
 
         public Client(Form form)
         {
@@ -89,12 +95,21 @@ namespace ConnectFour
                         }
                         case "Login":
                         {
-                            this.form.Invoke(new delLogin(Login), splitMessage[1]);
+                            this.form.Invoke(new delLogin(Login), splitMessage[1], splitMessage[2]);
                             break;
                         }
                         case "Insert":
                         {
                                 this.form.Invoke(new delInsert(Insert), splitMessage[1], splitMessage[2], splitMessage[3]);
+                                this.form.Invoke(new delSwitchTurn(SwitchTurn), splitMessage[3]);
+                                if (splitMessage[4].Split('\r')[0] == this.username)
+                                {
+                                    this.form.Invoke(new delEnabledButtons(EnabledButtons), "false");
+                                }
+                                else
+                                {
+                                    this.form.Invoke(new delEnabledButtons(EnabledButtons), "true");
+                                }
                                 break;
                         }
                         case "FullCol":
@@ -108,7 +123,21 @@ namespace ConnectFour
                                 this.form.Invoke(new delEnabledButtons(EnabledButtons), "false");
                                 break;
                         }
-                        
+                        case "Ready":
+                        {
+                                this.form.Invoke(new delTurn(Turn), splitMessage[2]);
+                                this.form.Invoke(new delDeleteWaiting(DeleteWaiting));
+
+                                if (splitMessage[1] == this.username)
+                                {
+                                    this.form.Invoke(new delEnabledButtons(EnabledButtons), "true");
+                                }
+                                else
+                                {
+                                    this.form.Invoke(new delEnabledButtons(EnabledButtons), "false");
+                                }
+                                break;
+                        }
                     }
 
                 }
@@ -130,7 +159,7 @@ namespace ConnectFour
         {
             if (str == "true")
             {
-                MessageBox.Show("You have signed up");
+                MessageBox.Show("You have signed up!");
             }
             else
             {
@@ -138,16 +167,20 @@ namespace ConnectFour
             }
         }
 
-        void Login(string str)
+        void Login(string str1, string str2)
         {
-            if (str == "true")
+            if (str1 == "true")
             {
                 MessageBox.Show("You have logged in!");
                 p = new Player(this);
                 p.Show();
+                form.Hide();
+                int currentPlayer = int.Parse(str2);
+                p.SetPlayerColorPic(currentPlayer);
+
             } else
             {
-                MessageBox.Show("password or username is incorrect");
+                MessageBox.Show("Password or username is incorrect");
             }
             
         }
@@ -169,6 +202,28 @@ namespace ConnectFour
             bool enabled = bool.Parse(str);
             p.EnabledButtons(enabled);
         }
+
+        void DeleteWaiting()
+        {
+            p.DeleteWaitingLabel();
+        }
+
+        void Turn(string str)
+        {
+            int currentPlayer = int.Parse(str);
+            p.TurnPic(currentPlayer);
+        }
+        void SwitchTurn(string str)
+        {
+            int currentPlayer = int.Parse(str);
+            p.SwitchTurnPic(currentPlayer);
+        }
+
+        public void SetUsername(string str)
+        {
+            this.username = str;
+        }
+
 
 
         void Disconnect()

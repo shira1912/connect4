@@ -36,14 +36,12 @@ namespace ConnectFour
         
 
         private Player p1;
-        private NetworkStream ns;
         private byte[] data;
         Client client;
 
-        public Form1(NetworkStream ns)
+        public Form1()
         {
             InitializeComponent();
-            this.ns = ns;
             client = new Client(this);
             Controls.Remove(returnPicBox);
         }
@@ -274,6 +272,7 @@ namespace ConnectFour
        {
             String input = usernameTL.Text + "," + passwordTL.Text;
 
+            client.SetUsername(usernameTL.Text);
             client.SendMessage("Login," + input);
         }
 
@@ -293,6 +292,7 @@ namespace ConnectFour
                     Controls.Clear();
                     Controls.Add(signUpB1);
                     Controls.Add(loginB1);
+                    Controls.Add(connect4title);
                 }
                 else
                 {
@@ -310,6 +310,7 @@ namespace ConnectFour
             Controls.Clear();
             Controls.Add(signUpB1);
             Controls.Add(loginB1);
+            Controls.Add(connect4title);
         }
     }
 

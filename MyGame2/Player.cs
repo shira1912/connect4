@@ -31,6 +31,8 @@ namespace ConnectFour
             DrawButtons(); // draw buttons
             DrawCircles(); // draw circles
             this.client = client;
+
+           
         }
 
         public int getPlayerNum()
@@ -61,6 +63,7 @@ namespace ConnectFour
                 this.buttonsArray[i].Text = "↓";
                 //this.buttonsArray[i].TabIndex = 43;
                 this.buttonsArray[i].UseVisualStyleBackColor = true;
+                this.buttonsArray[i].Enabled = false;
                 this.buttonsArray[i].Click += new System.EventHandler(buttonClick);
                 this.Controls.Add(this.buttonsArray[i]);
 
@@ -117,12 +120,69 @@ namespace ConnectFour
             else MessageBox.Show("Column" + (col + 1) + "is already full. Choose a different Column.");
         }
 
+        public void SetPlayerColorPic(int currentPlayer)
+        {
+            switch (currentPlayer)
+            {
+                case 1:
+                    this.playerColorPic.Image = ((System.Drawing.Image)(Properties.Resources.blue_circle_without_background));
+                    break;
+                case 2:
+                    this.playerColorPic.Image = ((System.Drawing.Image)(Properties.Resources.red_circle_without_background));
+                    break;
+            }
+        }
+
+        public void TurnPic(int currentPlayer)
+        {
+            switch (currentPlayer)
+            {
+                case 1:
+                    this.turnPicBox.Image = ((System.Drawing.Image)(Properties.Resources.blue_circle_without_background));
+                    break;
+                case 2:
+                    this.turnPicBox.Image = ((System.Drawing.Image)(Properties.Resources.red_circle_without_background));
+                    break;
+            }
+        }
+
+        public void SwitchTurnPic(int currentPlayer)
+        {
+            switch (currentPlayer)
+            {
+                case 2:
+                    this.turnPicBox.Image = ((System.Drawing.Image)(Properties.Resources.blue_circle_without_background));
+                    break;
+                case 1:
+                    this.turnPicBox.Image = ((System.Drawing.Image)(Properties.Resources.red_circle_without_background));
+                    break;
+            }
+        }
+
+        public void DeleteWaitingLabel()
+        {
+            this.waitingLabel.Hide();
+        }
+
         public void EnabledButtons(bool enabled)
         {
                 for (int i = 0; i < buttonsArray.Length; i++)
                 {
                     this.buttonsArray[i].Enabled = enabled;
                 }
+        }
+        private void newGame_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < this.circles.GetLength(0); i++)
+            {
+                for (int j = 0; j < this.circles.GetLength(1); j++)
+                {
+                    this.circles[i, j].Image = ((System.Drawing.Image)(Properties.Resources.gray_circle_without_background));
+                    this.buttonsArray[j].Enabled = true;
+                }
+
+                client.SendMessage("NewGame");
+            }
         }
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -139,9 +199,6 @@ namespace ConnectFour
 
         }
 
-        private void newGame_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

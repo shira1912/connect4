@@ -31,12 +31,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.connect4title = new System.Windows.Forms.Label();
             this.playerColorL = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.playerColorPic = new System.Windows.Forms.PictureBox();
             this.itsLabel = new System.Windows.Forms.Label();
             this.turnPicBox = new System.Windows.Forms.PictureBox();
             this.turnLabel = new System.Windows.Forms.Label();
             this.newGame = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.waitingLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.playerColorPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.turnPicBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,13 +70,14 @@
             this.playerColorL.TabIndex = 7;
             this.playerColorL.Text = "Your color:";
             // 
-            // pictureBox1
+            // playerColorPic
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(507, 102);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(55, 50);
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
+            this.playerColorPic.Location = new System.Drawing.Point(507, 102);
+            this.playerColorPic.Name = "playerColorPic";
+            this.playerColorPic.Size = new System.Drawing.Size(55, 50);
+            this.playerColorPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.playerColorPic.TabIndex = 8;
+            this.playerColorPic.TabStop = false;
             // 
             // itsLabel
             // 
@@ -93,6 +95,7 @@
             this.turnPicBox.Location = new System.Drawing.Point(458, 199);
             this.turnPicBox.Name = "turnPicBox";
             this.turnPicBox.Size = new System.Drawing.Size(55, 50);
+            this.turnPicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.turnPicBox.TabIndex = 10;
             this.turnPicBox.TabStop = false;
             // 
@@ -119,24 +122,34 @@
             this.newGame.UseVisualStyleBackColor = false;
             this.newGame.Click += new System.EventHandler(this.newGame_Click);
             // 
-            // Player1
+            // waitingLabel
+            // 
+            this.waitingLabel.AutoSize = true;
+            this.waitingLabel.Location = new System.Drawing.Point(444, 270);
+            this.waitingLabel.Name = "waitingLabel";
+            this.waitingLabel.Size = new System.Drawing.Size(137, 13);
+            this.waitingLabel.TabIndex = 13;
+            this.waitingLabel.Text = "Waiting for another player...";
+            // 
+            // Player
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(619, 377);
+            this.Controls.Add(this.waitingLabel);
             this.Controls.Add(this.newGame);
             this.Controls.Add(this.turnLabel);
             this.Controls.Add(this.turnPicBox);
             this.Controls.Add(this.itsLabel);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.playerColorPic);
             this.Controls.Add(this.playerColorL);
             this.Controls.Add(this.connect4title);
             this.Controls.Add(this.label1);
-            this.Name = "Player1";
+            this.Name = "Player";
             this.Text = "Player1";
             this.Load += new System.EventHandler(this.Player1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerColorPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.turnPicBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -147,10 +160,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label connect4title;
         private System.Windows.Forms.Label playerColorL;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox playerColorPic;
         private System.Windows.Forms.Label itsLabel;
         private System.Windows.Forms.PictureBox turnPicBox;
         private System.Windows.Forms.Label turnLabel;
         private System.Windows.Forms.Button newGame;
+        private System.Windows.Forms.Label waitingLabel;
     }
 }

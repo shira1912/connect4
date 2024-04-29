@@ -38,7 +38,18 @@ namespace ConnectFourServer
             return -1; // Column is already full
         }
 
-        public bool checkWin(int currentPlayer)
+        public void restartGame()
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    statusMatrix[i, j] = 0;
+                }
+            }
+        }
+
+            public bool checkWin(int currentPlayer)
         {
             return CheckHorizontal(currentPlayer) || CheckVertical(currentPlayer) || CheckDiagonal(currentPlayer);
         }
