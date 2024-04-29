@@ -174,6 +174,10 @@ namespace ConnectFourServer
                                     ClientsNick = new Hashtable();
                                     gameboard.restartGame();
                                 }
+                                if (gameboard.isBoardFull())
+                                {
+                                    Broadcast("Draw,");
+                                }
                                 break;
                         }
                         case "NewGame":

@@ -49,7 +49,23 @@ namespace ConnectFourServer
             }
         }
 
-            public bool checkWin(int currentPlayer)
+        public bool isBoardFull()
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    if (statusMatrix[i, j] == 0)
+                    {
+                        return false;
+                    }
+                   
+                }
+            }
+            return true;
+        }
+
+        public bool checkWin(int currentPlayer)
         {
             return CheckHorizontal(currentPlayer) || CheckVertical(currentPlayer) || CheckDiagonal(currentPlayer);
         }

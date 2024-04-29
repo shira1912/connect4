@@ -121,9 +121,15 @@ namespace ConnectFour
                         {
                                 MessageBox.Show("Player " + splitMessage[1] + " win!");
                                 this.form.Invoke(new delEnabledButtons(EnabledButtons), "false");
-                                this.form.Invoke(new delShowNewGameButton(ShowNewGameButton));
+                                //this.form.Invoke(new delShowNewGameButton(ShowNewGameButton));
                                 break;
                         }
+                        case "Draw":
+                            {
+                                MessageBox.Show("It's a draw!");
+                                this.form.Invoke(new delEnabledButtons(EnabledButtons), "false");
+                                break;
+                            }
                         case "Ready":
                         {
                                 this.form.Invoke(new delTurn(Turn), splitMessage[2]);
@@ -237,7 +243,7 @@ namespace ConnectFour
 
         void ShowNewGameButton()
         {
-            //p.ShowNewGameButton();
+            p.ShowNewGameButton();
         }
 
 
