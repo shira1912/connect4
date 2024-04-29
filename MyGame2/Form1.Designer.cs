@@ -92,7 +92,7 @@
             this.Controls.Add(this.signUpB1);
             this.Controls.Add(this.loginB1);
             this.Name = "Form1";
-            this.Text = "LoginSignUp";
+            this.Text = "Login and Sign Up";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.returnPicBox)).EndInit();
             this.ResumeLayout(false);

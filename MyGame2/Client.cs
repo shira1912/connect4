@@ -119,14 +119,14 @@ namespace ConnectFour
                         }
                         case "Win":
                         {
-                                MessageBox.Show("Player " + splitMessage[1] + " win!");
+                                MessageBox.Show(splitMessage[1] + " won! \n The game is over.");
                                 this.form.Invoke(new delEnabledButtons(EnabledButtons), "false");
                                 //this.form.Invoke(new delShowNewGameButton(ShowNewGameButton));
                                 break;
                         }
                         case "Draw":
                             {
-                                MessageBox.Show("It's a draw!");
+                                MessageBox.Show("It's a draw! \n The game is over.");
                                 this.form.Invoke(new delEnabledButtons(EnabledButtons), "false");
                                 break;
                             }
@@ -147,7 +147,7 @@ namespace ConnectFour
                         }
                         case "Exit":
                             {
-                                MessageBox.Show("The other player left. You win. \nIf you want to start a new game, click on the button.");
+                                MessageBox.Show("The other player left. You win.");
 
                                 break;
                             }
@@ -184,7 +184,6 @@ namespace ConnectFour
         {
             if (str1 == "true")
             {
-                MessageBox.Show("You have logged in!");
                 p = new Player(this);
                 p.Show();
                 form.Hide();
@@ -200,7 +199,7 @@ namespace ConnectFour
 
 
 
-        //void Insert(string str1, string str2, string str3, string str4)
+        
         void Insert(string str1, string str2, string str3)
         {
             int row = int.Parse(str1);

@@ -278,26 +278,66 @@ namespace ConnectFour
 
         private void signUpB2_Click(object sender, EventArgs e)
         {
-            //if (usernameT.Text != "")
-            //{
-               // Get the selected city from the ComboBox
-                //string selectedCity = cityC.SelectedItem?.ToString();  // Use ToString() to get the city as a string
-                if (!(string.IsNullOrEmpty(usernameT.Text) || string.IsNullOrEmpty(passwordT.Text) || string.IsNullOrEmpty(firstNameT.Text)
-                    || string.IsNullOrEmpty(lastNameT.Text) || string.IsNullOrEmpty(emailT.Text) || string.IsNullOrEmpty(cityC.Text)
-                    || string.IsNullOrEmpty(genderC.Text)))
-                {
-                    String input = usernameT.Text + "," + passwordT.Text + "," + firstNameT.Text + "," + lastNameT.Text + "," + emailT.Text + "," 
+            if ((string.IsNullOrEmpty(usernameT.Text) || string.IsNullOrEmpty(passwordT.Text) || string.IsNullOrEmpty(firstNameT.Text)
+                || string.IsNullOrEmpty(lastNameT.Text) || string.IsNullOrEmpty(emailT.Text) || string.IsNullOrEmpty(cityC.Text)
+                || string.IsNullOrEmpty(genderC.Text)))
+            {
+                MessageBox.Show("All fields must be filled");
+            }
+            else if (!IsInputOk(firstNameT.Text, lastNameT.Text))
+            {
+                MessageBox.Show("The FIRST NAME and LAST NAME must be two or more characters long.");
+            }
+            else if (!IsEmailOk(emailT.Text))
+            {
+                MessageBox.Show("The email must be in this format: xxxxxx@x.x" +
+                    "\n 1. Contain a '@' " +
+                    "\n 2. The text before the '@' must be six or more characters long \n 3. After the '@', there must" +
+                    " be a two or more characters long text, a  '.' after that and, another two or more characters" +
+                    " long text.");
+            }
+            else
+            {
+                String input = usernameT.Text + "," + passwordT.Text + "," + firstNameT.Text + "," + lastNameT.Text + "," + emailT.Text + ","
                         + cityC.Text + "," + genderC.Text;
-                    client.SendMessage("SignUp," + input);
-                    Controls.Clear();
-                    Controls.Add(signUpB1);
-                    Controls.Add(loginB1);
-                    Controls.Add(connect4title);
+                client.SendMessage("SignUp," + input);
+                Controls.Clear();
+                Controls.Add(signUpB1);
+                Controls.Add(loginB1);
+                Controls.Add(connect4title);
+            }   
+        }
+
+        private bool IsInputOk(string firstNameT, string lastNameT)
+        {
+            return ((firstNameT.Length >= 2) && (lastNameT.Length >= 2));
+        }
+
+        private bool IsEmailOk(string emailT)
+        {
+            if (!emailT.Contains("@"))
+            {
+                return false;
+            }
+            else
+            {
+                string[] mail = emailT.Split('@');
+                
+                if (mail[0].Length < 6)
+                {
+                    return false;
+                }
+                if (!mail[1].Contains("."))
+                {
+                    return false;
                 }
                 else
                 {
-                    MessageBox.Show("All fields must be filled");
+                    string[] afterAt = mail[1].Split('.');
+                    if ((afterAt[0].Length < 1) && (afterAt[1].Length < 1)) ;
                 }
+            }
+            return true;
         }
 
         private void Form1_Load(object sender, EventArgs e)

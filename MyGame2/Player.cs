@@ -215,5 +215,10 @@ namespace ConnectFour
             client.SendMessage("Exit,");
             this.Close();
         }
+
+        private void waitingLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

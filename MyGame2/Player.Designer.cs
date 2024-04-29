@@ -64,7 +64,7 @@
             this.playerColorL.AutoSize = true;
             this.playerColorL.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playerColorL.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.playerColorL.Location = new System.Drawing.Point(424, 116);
+            this.playerColorL.Location = new System.Drawing.Point(445, 87);
             this.playerColorL.Name = "playerColorL";
             this.playerColorL.Size = new System.Drawing.Size(77, 17);
             this.playerColorL.TabIndex = 7;
@@ -72,9 +72,9 @@
             // 
             // playerColorPic
             // 
-            this.playerColorPic.Location = new System.Drawing.Point(507, 102);
+            this.playerColorPic.Location = new System.Drawing.Point(528, 87);
             this.playerColorPic.Name = "playerColorPic";
-            this.playerColorPic.Size = new System.Drawing.Size(55, 50);
+            this.playerColorPic.Size = new System.Drawing.Size(26, 27);
             this.playerColorPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.playerColorPic.TabIndex = 8;
             this.playerColorPic.TabStop = false;
@@ -92,9 +92,9 @@
             // 
             // turnPicBox
             // 
-            this.turnPicBox.Location = new System.Drawing.Point(458, 199);
+            this.turnPicBox.Location = new System.Drawing.Point(458, 196);
             this.turnPicBox.Name = "turnPicBox";
-            this.turnPicBox.Size = new System.Drawing.Size(55, 50);
+            this.turnPicBox.Size = new System.Drawing.Size(55, 53);
             this.turnPicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.turnPicBox.TabIndex = 10;
             this.turnPicBox.TabStop = false;
@@ -119,18 +119,20 @@
             this.newGame.Size = new System.Drawing.Size(75, 23);
             this.newGame.TabIndex = 12;
             this.newGame.Text = "New Game";
-            this.newGame.Visible = false;
             this.newGame.UseVisualStyleBackColor = false;
+            this.newGame.Visible = false;
             this.newGame.Click += new System.EventHandler(this.newGame_Click);
             // 
             // waitingLabel
             // 
             this.waitingLabel.AutoSize = true;
-            this.waitingLabel.Location = new System.Drawing.Point(444, 270);
+            this.waitingLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.waitingLabel.Location = new System.Drawing.Point(390, 274);
             this.waitingLabel.Name = "waitingLabel";
-            this.waitingLabel.Size = new System.Drawing.Size(137, 13);
+            this.waitingLabel.Size = new System.Drawing.Size(205, 21);
             this.waitingLabel.TabIndex = 13;
             this.waitingLabel.Text = "Waiting for another player...";
+            this.waitingLabel.Click += new System.EventHandler(this.waitingLabel_Click);
             // 
             // Player
             // 
@@ -148,7 +150,7 @@
             this.Controls.Add(this.connect4title);
             this.Controls.Add(this.label1);
             this.Name = "Player";
-            this.Text = "Player1";
+            this.Text = "Connect Four";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Exit);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Exit);
             this.Load += new System.EventHandler(this.Player1_Load);
