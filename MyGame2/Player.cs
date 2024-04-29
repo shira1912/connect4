@@ -31,6 +31,7 @@ namespace ConnectFour
             DrawButtons(); // draw buttons
             DrawCircles(); // draw circles
             this.client = client;
+            this.newGame.Hide();
 
            
         }
@@ -171,6 +172,11 @@ namespace ConnectFour
                     this.buttonsArray[i].Enabled = enabled;
                 }
         }
+
+        public void ShowNewGameButton()
+        {
+            this.newGame.Show();
+        }
         private void newGame_Click(object sender, EventArgs e)
         {
             for (int i = 0; i < this.circles.GetLength(0); i++)
@@ -178,10 +184,11 @@ namespace ConnectFour
                 for (int j = 0; j < this.circles.GetLength(1); j++)
                 {
                     this.circles[i, j].Image = ((System.Drawing.Image)(Properties.Resources.gray_circle_without_background));
-                    this.buttonsArray[j].Enabled = true;
+                    this.buttonsArray[j].Enabled = false;
+                    this.waitingLabel.Show();
                 }
 
-                client.SendMessage("NewGame");
+                client.SendMessage("NewGame,"+client.GetUsername());
             }
         }
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -198,7 +205,15 @@ namespace ConnectFour
         {
 
         }
+         private void Exit(object sender, FormClosedEventArgs e)
+        {
+            
+        }
 
-        
+        private void Exit(object sender, FormClosingEventArgs e)
+        {
+            client.SendMessage("Exit,");
+            this.Close();
+        }
     }
 }

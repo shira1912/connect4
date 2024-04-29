@@ -148,6 +148,8 @@
             this.Controls.Add(this.label1);
             this.Name = "Player";
             this.Text = "Player1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Exit);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Exit);
             this.Load += new System.EventHandler(this.Player1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.playerColorPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.turnPicBox)).EndInit();

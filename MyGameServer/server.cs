@@ -171,12 +171,22 @@ namespace ConnectFourServer
                                 if (gameboard.checkWin(_ClientNum))
                                 {
                                     Broadcast("Win," + ClientsNick[_ClientNum]);
+                                    ClientsNick = new Hashtable();
+                                    gameboard.restartGame();
                                 }
                                 break;
                         }
                         case "NewGame":
                             {
-                                gameboard.restartGame();
+                                ClientsNick.Add(ClientsNick.Count + 1, splitMessage[1]);
+                                if (ClientsNick.Count == 4)
+                                {
+                                    Broadcast("Ready," + ClientsNick[1] + "," + 1);
+                                }
+                                break;
+                            }
+                        case "Exit":
+                            {
                                 break;
                             }
                     }
@@ -197,7 +207,8 @@ namespace ConnectFourServer
             catch (Exception ex)
             {
                 AllClients.Remove(_clientIP);
-                Broadcast(_ClientNum + " has left the chat.");
+                ClientsNick.Remove(_ClientNum);
+                Broadcast("Exit,"+_ClientNum + " has left the chat.");
             }
         }
 

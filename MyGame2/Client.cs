@@ -27,7 +27,7 @@ namespace ConnectFour
         private delegate void delTurn(string str);
         private delegate void delSwitchTurn(string str);
         private delegate void delDeleteWaiting();
-
+        private delegate void delShowNewGameButton();
 
 
         public Client(Form form)
@@ -121,6 +121,7 @@ namespace ConnectFour
                         {
                                 MessageBox.Show("Player " + splitMessage[1] + " win!");
                                 this.form.Invoke(new delEnabledButtons(EnabledButtons), "false");
+                                this.form.Invoke(new delShowNewGameButton(ShowNewGameButton));
                                 break;
                         }
                         case "Ready":
@@ -138,6 +139,12 @@ namespace ConnectFour
                                 }
                                 break;
                         }
+                        case "Exit":
+                            {
+                                MessageBox.Show("The other player left. You win. \nIf you want to start a new game, click on the button.");
+
+                                break;
+                            }
                     }
 
                 }
@@ -223,7 +230,15 @@ namespace ConnectFour
         {
             this.username = str;
         }
+        public string GetUsername()
+        {
+            return this.username;
+        }
 
+        void ShowNewGameButton()
+        {
+            p.ShowNewGameButton();
+        }
 
 
         void Disconnect()
