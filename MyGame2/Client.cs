@@ -237,7 +237,7 @@ namespace ConnectFour
 
         void ShowNewGameButton()
         {
-            p.ShowNewGameButton();
+            //p.ShowNewGameButton();
         }
 
 

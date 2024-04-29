@@ -8,7 +8,7 @@ namespace ConnectFourServer
 {
     public class GameBoard
     {
-        public int[,] statusMatrix;
+        public static int[,] statusMatrix;
         private const int rows = 6;
         private const int cols = 7;
 
