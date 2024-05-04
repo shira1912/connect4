@@ -118,7 +118,6 @@
             this.waitingLabel.Size = new System.Drawing.Size(205, 21);
             this.waitingLabel.TabIndex = 13;
             this.waitingLabel.Text = "Waiting for another player...";
-            this.waitingLabel.Click += new System.EventHandler(this.waitingLabel_Click);
             // 
             // Player
             // 
@@ -137,7 +136,6 @@
             this.Name = "Player";
             this.Text = "Connect Four";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Exit);
-            this.Load += new System.EventHandler(this.Player1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.playerColorPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.turnPicBox)).EndInit();
             this.ResumeLayout(false);

@@ -108,22 +108,7 @@ namespace ConnectFourServer
                 // if bytesread<1 -> the client disconnected
                 if (bytesRead < 1)
                 {
-                    if (ClientsNick.Count == 2)
-                    {
-                        //// remove the client from out of the lists of clients
-                        AllClients.Remove(_clientIP);
-                        ClientsNick.Remove(_ClientNum);
-                        //// tell everyone the client left the chat
-                        Broadcast("Exit," + _ClientNum + " has left the chat.");
-                    }
-                    else
-                    {
-                        //// remove the client from out of the lists of clients
-                        AllClients.Remove(_clientIP);
-                        ClientsNick.Remove(_ClientNum);
-                        //// tell everyone the client left the chat
-                        Broadcast(_ClientNum + " has left the chat.");
-                    }
+                    ClientDisconnect();
                     return;
                 }
                 else // client still connected
@@ -201,25 +186,29 @@ namespace ConnectFourServer
             }
             catch (Exception ex)
             {
-                if (ClientsNick.Count == 2)
-                {
-                    AllClients.Remove(_clientIP);
-                    ClientsNick.Remove(_ClientNum);
-                    Broadcast("Exit," + _ClientNum + " has left the chat.");
-                }
-                else
-                {
-                    AllClients.Remove(_clientIP);
-                    ClientsNick.Remove(_ClientNum);
-                    Broadcast(_ClientNum + " has left the chat.");
-                }
+                ClientDisconnect();
             }
         }
 
-        //public void ClientDisconnect()
-        //{
-
-        //}
+        public void ClientDisconnect()
+        {
+            if (ClientsNick.Count == 2)
+            {
+                //// remove the client from out of the lists of clients
+                AllClients.Remove(_clientIP);
+                ClientsNick.Remove(_ClientNum);
+                //// tell everyone the client left the chat
+                Broadcast("Exit," + _ClientNum + " has left the chat.");
+            }
+            else
+            {
+                //// remove the client from out of the lists of clients
+                AllClients.Remove(_clientIP);
+                ClientsNick.Remove(_ClientNum);
+                //// tell everyone the client left the chat
+                Broadcast(_ClientNum + " has left the chat.");
+            }
+        }
 
         /// <summary>
         /// send message to all the clients that are stored in the allclients hashtable

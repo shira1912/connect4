@@ -13,7 +13,6 @@ namespace ConnectFour
 {
     public partial class Player : Form
     {
-        private NetworkStream ns;
         private int playerNum = 1;
         private PictureBox[,] circles;
         private Button[] buttonsArray;
@@ -172,29 +171,6 @@ namespace ConnectFour
                     this.buttonsArray[i].Text = "";
                 }
             }
-        }
-
-
-
-        //private void pictureBox1_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        //private void button1_Click(object sender, EventArgs e)
-        //{
-
-        //}
-
-        private void Player1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
-        private void waitingLabel_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void Exit(object sender, FormClosingEventArgs e)
