@@ -72,9 +72,9 @@ namespace ConnectFourServer
             {
                 System.Net.Sockets.NetworkStream ns;
 
-                // use lock to present multiple threads from using the networkstream object
+                // use lock to prevent multiple threads from using the networkstream object
                 // this is likely to occur when the server is connected to multiple clients all of 
-                // them trying to access to the networkstram at the same time.
+                // them trying to access to the networkstream at the same time.
                 lock (_client.GetStream())
                 {
                     ns = _client.GetStream();
@@ -108,17 +108,28 @@ namespace ConnectFourServer
                 // if bytesread<1 -> the client disconnected
                 if (bytesRead < 1)
                 {
-                    // remove the client from out list of clients
-                    AllClients.Remove(_clientIP);
-                    // tell everyone the client left the chat.
-                    Broadcast(_ClientNum + " has left the chat.");
+                    if (ClientsNick.Count == 2)
+                    {
+                        //// remove the client from out of the lists of clients
+                        AllClients.Remove(_clientIP);
+                        ClientsNick.Remove(_ClientNum);
+                        //// tell everyone the client left the chat
+                        Broadcast("Exit," + _ClientNum + " has left the chat.");
+                    }
+                    else
+                    {
+                        //// remove the client from out of the lists of clients
+                        AllClients.Remove(_clientIP);
+                        ClientsNick.Remove(_ClientNum);
+                        //// tell everyone the client left the chat
+                        Broadcast(_ClientNum + " has left the chat.");
+                    }
                     return;
                 }
                 else // client still connected
                 {
                     string messageReceived = System.Text.Encoding.ASCII.GetString(data, 0, bytesRead);
                     string [] splitMessage = messageReceived.Split(',');
-                    // if the client is sending its nickname
                     switch (splitMessage[0])
                     {
                         case "SignUp":
@@ -157,12 +168,12 @@ namespace ConnectFourServer
                             break;
                         }
                         case "Insert":
-                        {
+                            {
                                 int selectedCol = int.Parse(splitMessage[1]);
                                 int row = gameboard.insertDisc(selectedCol, _ClientNum);
                                 if (row >= 0)
                                 {
-                                    Broadcast("Insert," + row + "," +selectedCol + "," + _ClientNum + "," + ClientsNick[_ClientNum]);
+                                    Broadcast("Insert," + row + "," + selectedCol + "," + _ClientNum + "," + ClientsNick[_ClientNum]);
                                 }
                                 else
                                 {
@@ -179,28 +190,8 @@ namespace ConnectFourServer
                                     Broadcast("Draw,");
                                 }
                                 break;
-                        }
-                        case "NewGame":
-                            {
-                                ClientsNick.Add(ClientsNick.Count + 1, splitMessage[1]);
-                                if (ClientsNick.Count == 4)
-                                {
-                                    Broadcast("Ready," + ClientsNick[1] + "," + 1);
-                                }
-                                break;
-                            }
-                        case "Exit":
-                            {
-                                break;
                             }
                     }
-                    //if (ReceiveNick)
-                    //{
-                    //    _ClientNum = messageReceived;
-                    //    // tell evetyone that the client has entered the chat
-                    //    Broadcast(_ClientNum + " has joined the chat.");
-                    //    ReceiveNick = false;
-                    //}
                 }
                 lock (_client.GetStream())
                 {
@@ -210,11 +201,25 @@ namespace ConnectFourServer
             }
             catch (Exception ex)
             {
-                AllClients.Remove(_clientIP);
-                ClientsNick.Remove(_ClientNum);
-                Broadcast("Exit,"+_ClientNum + " has left the chat.");
+                if (ClientsNick.Count == 2)
+                {
+                    AllClients.Remove(_clientIP);
+                    ClientsNick.Remove(_ClientNum);
+                    Broadcast("Exit," + _ClientNum + " has left the chat.");
+                }
+                else
+                {
+                    AllClients.Remove(_clientIP);
+                    ClientsNick.Remove(_ClientNum);
+                    Broadcast(_ClientNum + " has left the chat.");
+                }
             }
         }
+
+        //public void ClientDisconnect()
+        //{
+
+        //}
 
         /// <summary>
         /// send message to all the clients that are stored in the allclients hashtable

@@ -27,7 +27,6 @@ namespace ConnectFour
         private delegate void delTurn(string str);
         private delegate void delSwitchTurn(string str);
         private delegate void delDeleteWaiting();
-        private delegate void delShowNewGameButton();
 
 
         public Client(Form form)
@@ -114,14 +113,14 @@ namespace ConnectFour
                         }
                         case "FullCol":
                         {
-                                MessageBox.Show("Column" + splitMessage[1] + " is already full. please choose another column");
+                                int colNum = int.Parse(splitMessage[1]) + 1;
+                                MessageBox.Show("Column " + colNum + " is already full. please choose another column");
                                 break;
                         }
                         case "Win":
                         {
                                 MessageBox.Show(splitMessage[1] + " won! \n The game is over.");
                                 this.form.Invoke(new delEnabledButtons(EnabledButtons), "false");
-                                //this.form.Invoke(new delShowNewGameButton(ShowNewGameButton));
                                 break;
                         }
                         case "Draw":
@@ -147,9 +146,8 @@ namespace ConnectFour
                         }
                         case "Exit":
                             {
-                                MessageBox.Show("The other player left. You win.");
-
-                                break;
+                                MessageBox.Show("The other player left.");
+                                return;
                             }
                     }
 
@@ -164,7 +162,7 @@ namespace ConnectFour
             }
             catch (Exception ex)
             {
-                // ignor the error... fired when the user loggs off
+                // ignore the error... fired when the user logs off
             }
         }
 
@@ -196,8 +194,6 @@ namespace ConnectFour
             }
             
         }
-
-
 
         
         void Insert(string str1, string str2, string str3)
@@ -240,13 +236,8 @@ namespace ConnectFour
             return this.username;
         }
 
-        void ShowNewGameButton()
-        {
-            p.ShowNewGameButton();
-        }
 
-
-        void Disconnect()
+        public void Disconnect()
         {
             try
             {

@@ -35,7 +35,6 @@
             this.itsLabel = new System.Windows.Forms.Label();
             this.turnPicBox = new System.Windows.Forms.PictureBox();
             this.turnLabel = new System.Windows.Forms.Label();
-            this.newGame = new System.Windows.Forms.Button();
             this.waitingLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.playerColorPic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.turnPicBox)).BeginInit();
@@ -110,19 +109,6 @@
             this.turnLabel.TabIndex = 11;
             this.turnLabel.Text = "\'s turn";
             // 
-            // newGame
-            // 
-            this.newGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.newGame.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.newGame.Location = new System.Drawing.Point(458, 297);
-            this.newGame.Name = "newGame";
-            this.newGame.Size = new System.Drawing.Size(75, 23);
-            this.newGame.TabIndex = 12;
-            this.newGame.Text = "New Game";
-            this.newGame.UseVisualStyleBackColor = false;
-            this.newGame.Visible = false;
-            this.newGame.Click += new System.EventHandler(this.newGame_Click);
-            // 
             // waitingLabel
             // 
             this.waitingLabel.AutoSize = true;
@@ -141,7 +127,6 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(619, 377);
             this.Controls.Add(this.waitingLabel);
-            this.Controls.Add(this.newGame);
             this.Controls.Add(this.turnLabel);
             this.Controls.Add(this.turnPicBox);
             this.Controls.Add(this.itsLabel);
@@ -152,7 +137,6 @@
             this.Name = "Player";
             this.Text = "Connect Four";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Exit);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Exit);
             this.Load += new System.EventHandler(this.Player1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.playerColorPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.turnPicBox)).EndInit();
@@ -169,7 +153,6 @@
         private System.Windows.Forms.Label itsLabel;
         private System.Windows.Forms.PictureBox turnPicBox;
         private System.Windows.Forms.Label turnLabel;
-        private System.Windows.Forms.Button newGame;
         private System.Windows.Forms.Label waitingLabel;
     }
 }

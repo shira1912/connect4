@@ -108,7 +108,7 @@ namespace ConnectFourServer
 
         private bool CheckDiagonal(int currentPlayer)
         {
-                // Check for diagonal wins from top-left to bottom-right
+            // Check for diagonal wins from top-left to bottom-right
             for (int row = 0; row <= rows - 4; row++)
             {
                 for (int col = 0; col <= cols - 4; col++)

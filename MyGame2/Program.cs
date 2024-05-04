@@ -16,14 +16,6 @@ namespace ConnectFour
         [STAThread]
         static void Main()
         {
-            //Console.WriteLine("Connecting to ip {0} port: {1}", ipAddress, portNo);
-
-            //TcpClient tcpclient = new TcpClient();
-            //tcpclient.Connect(ipAddress, portNo);
-
-            //Console.WriteLine("Client is ready.");
-            //NetworkStream ns = tcpclient.GetStream();
-
             Application.Run(new Form1());
         }
     }

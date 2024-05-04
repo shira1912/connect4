@@ -35,7 +35,6 @@ namespace ConnectFourServer
                 //AcceptTcpClient open new socket for the new client
                 TcpClient tcpClient = listener.AcceptTcpClient();
                 Console.WriteLine("new socket: " + tcpClient.Client.RemoteEndPoint.ToString());
-                //ChatClient user = new ChatClient(listener.AcceptTcpClient());
                 Server user = new Server(tcpClient);
             }
         }

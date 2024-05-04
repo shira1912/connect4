@@ -39,15 +39,7 @@ namespace ConnectFourServer
             int x = command.ExecuteNonQuery();
             connection.Close();
         }
-        //public void InsertNewUser(string username, string password, string firstName, string lastName, string email, string city, string gender)
-        //{
-        //    command.CommandText = "INSERT INTO Users VALUES('" + username + "' , '" + password + "','" + firstName + "','" + lastName + "','" + email + "','" + city + "','" + gender + "')";
-        //    connection.Open();
-        //    command.Connection = connection;
-        //    int x = command.ExecuteNonQuery();
-        //    connection.Close();
-        //}
-
+      
         public bool IsExist(string username)
         {
             command.CommandText = " SELECT COUNT(username) FROM Users WHERE username='" + username + "'";

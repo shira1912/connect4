@@ -31,9 +31,6 @@ namespace ConnectFour
             DrawButtons(); // draw buttons
             DrawCircles(); // draw circles
             this.client = client;
-            this.newGame.Hide();
-
-           
         }
 
         public int getPlayerNum()
@@ -44,9 +41,6 @@ namespace ConnectFour
         public void buttonClick(object sender, EventArgs e)
         {
             int selectedCol = int.Parse(((Button)sender).Name);
-            // ns.Write(data...); // sends selectedCol to server (the server returns the avaliable row in the selected column)
-            // ns.Read(data...);  // reads avaliable row and current player from server
-            //UpdateCircle(data[0], selectedCol, data[1])
             client.SendMessage("Insert," + selectedCol);
 
         }
@@ -61,8 +55,7 @@ namespace ConnectFour
                 this.buttonsArray[i].Location = new System.Drawing.Point(x, y);
                 this.buttonsArray[i].Name = "" + i;
                 this.buttonsArray[i].Size = new System.Drawing.Size(39, 23);
-                this.buttonsArray[i].Text = "↓";
-                //this.buttonsArray[i].TabIndex = 43;
+                this.buttonsArray[i].Text = "";
                 this.buttonsArray[i].UseVisualStyleBackColor = true;
                 this.buttonsArray[i].Enabled = false;
                 this.buttonsArray[i].Click += new System.EventHandler(buttonClick);
@@ -167,58 +160,46 @@ namespace ConnectFour
 
         public void EnabledButtons(bool enabled)
         {
-                for (int i = 0; i < buttonsArray.Length; i++)
-                {
-                    this.buttonsArray[i].Enabled = enabled;
-                }
-        }
-
-        public void ShowNewGameButton()
-        {
-            this.newGame.Show();
-        }
-        private void newGame_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < this.circles.GetLength(0); i++)
+            for (int i = 0; i < buttonsArray.Length; i++)
             {
-                for (int j = 0; j < this.circles.GetLength(1); j++)
+                this.buttonsArray[i].Enabled = enabled;
+                if (enabled)
                 {
-                    this.circles[i, j].Image = ((System.Drawing.Image)(Properties.Resources.gray_circle_without_background));
-                    this.buttonsArray[j].Enabled = false;
-                    this.waitingLabel.Show();
+                    this.buttonsArray[i].Text = "↓";
                 }
-
-                client.SendMessage("NewGame,"+client.GetUsername());
+                else
+                {
+                    this.buttonsArray[i].Text = "";
+                }
             }
         }
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
 
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
-        }
+        //private void pictureBox1_Click(object sender, EventArgs e)
+        //{
+
+        //}
+
+        //private void button1_Click(object sender, EventArgs e)
+        //{
+
+        //}
 
         private void Player1_Load(object sender, EventArgs e)
         {
 
         }
-         private void Exit(object sender, FormClosedEventArgs e)
-        {
-            
-        }
 
-        private void Exit(object sender, FormClosingEventArgs e)
-        {
-            client.SendMessage("Exit,");
-            this.Close();
-        }
 
         private void waitingLabel_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Exit(object sender, FormClosingEventArgs e)
+        {
+            client.Disconnect();
         }
     }
 }
