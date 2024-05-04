@@ -73,6 +73,16 @@ namespace ConnectFour.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap blue_label_without_background {
+            get {
+                object obj = ResourceManager.GetObject("blue label without background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap gray_circle_without_background {
             get {
                 object obj = ResourceManager.GetObject("gray circle without background", resourceCulture);
@@ -86,6 +96,26 @@ namespace ConnectFour.Properties {
         internal static System.Drawing.Bitmap red_circle_without_background {
             get {
                 object obj = ResourceManager.GetObject("red circle without background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap red_label_with_background {
+            get {
+                object obj = ResourceManager.GetObject("red label with background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap red_label_without_background {
+            get {
+                object obj = ResourceManager.GetObject("red label without background", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

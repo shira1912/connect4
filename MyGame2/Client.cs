@@ -59,11 +59,7 @@ namespace ConnectFour
             }
         }
 
-        /// <summary>
-        /// Asynchronously read data sent from the server in a seperate thread.
-        /// Update the txtMessageHistory control using delegate.
-        /// 
-        /// Windows controls are not thread safed !
+        
         /// </summary>
         /// <param name="ar"></param>
         private void ReceiveMessage(IAsyncResult ar)

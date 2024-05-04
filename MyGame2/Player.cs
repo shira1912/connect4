@@ -30,6 +30,8 @@ namespace ConnectFour
             DrawButtons(); // draw buttons
             DrawCircles(); // draw circles
             this.client = client;
+            this.itsLabel.Hide();
+            this.turnLabel.Hide();
         }
 
         public int getPlayerNum()
@@ -131,10 +133,10 @@ namespace ConnectFour
             switch (currentPlayer)
             {
                 case 1:
-                    this.turnPicBox.Image = ((System.Drawing.Image)(Properties.Resources.blue_circle_without_background));
+                    this.turnPicBox.Image = ((System.Drawing.Image)(Properties.Resources.blue_label_without_background));
                     break;
                 case 2:
-                    this.turnPicBox.Image = ((System.Drawing.Image)(Properties.Resources.red_circle_without_background));
+                    this.turnPicBox.Image = ((System.Drawing.Image)(Properties.Resources.red_label_without_background));
                     break;
             }
         }
@@ -144,10 +146,10 @@ namespace ConnectFour
             switch (currentPlayer)
             {
                 case 2:
-                    this.turnPicBox.Image = ((System.Drawing.Image)(Properties.Resources.blue_circle_without_background));
+                    this.turnPicBox.Image = ((System.Drawing.Image)(Properties.Resources.blue_label_without_background));
                     break;
                 case 1:
-                    this.turnPicBox.Image = ((System.Drawing.Image)(Properties.Resources.red_circle_without_background));
+                    this.turnPicBox.Image = ((System.Drawing.Image)(Properties.Resources.red_label_without_background));
                     break;
             }
         }
@@ -155,6 +157,8 @@ namespace ConnectFour
         public void DeleteWaitingLabel()
         {
             this.waitingLabel.Hide();
+            this.itsLabel.Show();
+            this.turnLabel.Show();
         }
 
         public void EnabledButtons(bool enabled)

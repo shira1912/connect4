@@ -148,7 +148,7 @@ namespace ConnectFourServer
 
                             } else
                             {
-                                SendMessage("Login,false");
+                                SendMessage("Login,false,0");
                             }
                             break;
                         }

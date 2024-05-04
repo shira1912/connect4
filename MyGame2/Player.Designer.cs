@@ -31,13 +31,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.connect4title = new System.Windows.Forms.Label();
             this.playerColorL = new System.Windows.Forms.Label();
-            this.playerColorPic = new System.Windows.Forms.PictureBox();
             this.itsLabel = new System.Windows.Forms.Label();
-            this.turnPicBox = new System.Windows.Forms.PictureBox();
             this.turnLabel = new System.Windows.Forms.Label();
             this.waitingLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.playerColorPic)).BeginInit();
+            this.turnPicBox = new System.Windows.Forms.PictureBox();
+            this.playerColorPic = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.turnPicBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerColorPic)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -61,51 +61,33 @@
             // playerColorL
             // 
             this.playerColorL.AutoSize = true;
-            this.playerColorL.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playerColorL.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playerColorL.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.playerColorL.Location = new System.Drawing.Point(445, 87);
+            this.playerColorL.Location = new System.Drawing.Point(432, 116);
             this.playerColorL.Name = "playerColorL";
-            this.playerColorL.Size = new System.Drawing.Size(77, 17);
+            this.playerColorL.Size = new System.Drawing.Size(97, 22);
             this.playerColorL.TabIndex = 7;
             this.playerColorL.Text = "Your color:";
-            // 
-            // playerColorPic
-            // 
-            this.playerColorPic.Location = new System.Drawing.Point(528, 87);
-            this.playerColorPic.Name = "playerColorPic";
-            this.playerColorPic.Size = new System.Drawing.Size(26, 27);
-            this.playerColorPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.playerColorPic.TabIndex = 8;
-            this.playerColorPic.TabStop = false;
             // 
             // itsLabel
             // 
             this.itsLabel.AutoSize = true;
-            this.itsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.itsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.itsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.itsLabel.Location = new System.Drawing.Point(427, 212);
+            this.itsLabel.Location = new System.Drawing.Point(410, 204);
             this.itsLabel.Name = "itsLabel";
-            this.itsLabel.Size = new System.Drawing.Size(25, 17);
+            this.itsLabel.Size = new System.Drawing.Size(36, 25);
             this.itsLabel.TabIndex = 9;
             this.itsLabel.Text = "It\'s";
-            // 
-            // turnPicBox
-            // 
-            this.turnPicBox.Location = new System.Drawing.Point(458, 196);
-            this.turnPicBox.Name = "turnPicBox";
-            this.turnPicBox.Size = new System.Drawing.Size(55, 53);
-            this.turnPicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.turnPicBox.TabIndex = 10;
-            this.turnPicBox.TabStop = false;
             // 
             // turnLabel
             // 
             this.turnLabel.AutoSize = true;
-            this.turnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.turnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.turnLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.turnLabel.Location = new System.Drawing.Point(519, 214);
+            this.turnLabel.Location = new System.Drawing.Point(521, 204);
             this.turnLabel.Name = "turnLabel";
-            this.turnLabel.Size = new System.Drawing.Size(47, 17);
+            this.turnLabel.Size = new System.Drawing.Size(64, 25);
             this.turnLabel.TabIndex = 11;
             this.turnLabel.Text = "\'s turn";
             // 
@@ -118,6 +100,24 @@
             this.waitingLabel.Size = new System.Drawing.Size(205, 21);
             this.waitingLabel.TabIndex = 13;
             this.waitingLabel.Text = "Waiting for another player...";
+            // 
+            // turnPicBox
+            // 
+            this.turnPicBox.Location = new System.Drawing.Point(448, 183);
+            this.turnPicBox.Name = "turnPicBox";
+            this.turnPicBox.Size = new System.Drawing.Size(75, 70);
+            this.turnPicBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.turnPicBox.TabIndex = 10;
+            this.turnPicBox.TabStop = false;
+            // 
+            // playerColorPic
+            // 
+            this.playerColorPic.Location = new System.Drawing.Point(535, 110);
+            this.playerColorPic.Name = "playerColorPic";
+            this.playerColorPic.Size = new System.Drawing.Size(35, 35);
+            this.playerColorPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.playerColorPic.TabIndex = 8;
+            this.playerColorPic.TabStop = false;
             // 
             // Player
             // 
@@ -136,8 +136,8 @@
             this.Name = "Player";
             this.Text = "Connect Four";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Exit);
-            ((System.ComponentModel.ISupportInitialize)(this.playerColorPic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.turnPicBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerColorPic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

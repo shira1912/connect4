@@ -62,9 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CircleButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Client.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -130,6 +127,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue label without background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red label with background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\red label without background.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -118,19 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="gray circle without background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gray circle without background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="blue circle without background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\blue circle without background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="red circle without background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\red circle without background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gray circle without background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gray circle without background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="return arrow without background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\return arrow without background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="return arrow without background1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\return arrow without background1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blue label without background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue label without background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blue circle without background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blue circle without background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="red label with background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\red label with background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="red label without background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\red label without background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
